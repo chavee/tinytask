@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StarterWeb Task Board</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>StarterWeb Task Board</h1>
+      <div class="status-bar">
+        <span>API Status: <span id="api-status">Checking...</span></span>
+        <span id="task-counts"></span>
+      </div>
+    </header>
+
+    <main>
+      <div class="add-task-form">
+        <input type="text" id="new-task-title" placeholder="Enter a new task title...">
+        <button id="add-task-btn">Add Task</button>
+      </div>
+      <p id="error-message" class="error-message"></p>
+
+      <div class="board">
+        <div class="column">
+          <h2>TODO</h2>
+          <ul id="todo-list" class="task-list"></ul>
+        </div>
+        <div class="column">
+          <h2>DONE</h2>
+          <ul id="done-list" class="task-list"></ul>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

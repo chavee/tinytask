@@ -1,0 +1,15 @@
+# Ignore files and directories that should not be included in the Docker image
+node_modules
+npm-debug.log
+Dockerfile
+.dockerignore
+.git
+.github
+.gitignore
+README.md
+dist
+tests
+.eslintignore
+.eslintrc.json
+jest.config.js
+tsconfig.json
