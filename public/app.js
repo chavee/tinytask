@@ -43,16 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title }),
       });
-      if (!response.ok) {
+
+      if (response.ok) {
+        await fetchTasks(); // Re-fetch to display the new task
+        newTaskInput.value = '';
+        hideError();
+      } else {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Invalid input');
+        showError(errorData.message || 'Something went wrong');
       }
-      await fetchTasks(); // Re-fetch all tasks to display the new one
-      newTaskInput.value = '';
-      hideError();
     } catch (error) {
       console.error('Failed to create task:', error);
-      showError(`Error: ${error.message}`);
+      showError('Could not connect to the server to create task.');
     }
   };
 
@@ -82,12 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         todoCount++;
       }
-      
+
       taskEl.innerHTML = `
         <input type="checkbox" data-id="${task.id}" ${task.done ? 'checked' : ''}>
         <span>${task.title}</span>
       `;
-      
+
       if (task.done) {
         doneListEl.appendChild(taskEl);
       } else {
@@ -109,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Event Listeners ---
   addTaskBtn.addEventListener('click', () => {
-    const title = newTaskInput.value.trim();
+    const title = newTaskInput.value;
     if (title) {
       createTask(newTaskInput.value); // Send original value to test backend validation
     } else {
@@ -130,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleTaskStatus(id);
     }
   });
-  
+
   // --- Initial Load ---
   checkApiStatus();
   fetchTasks();
