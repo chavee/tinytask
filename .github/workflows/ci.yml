@@ -1,7 +1,10 @@
 name: Node.js CI
 
-# This workflow runs on pushes to any branch and on pull requests.
-on: [push, pull_request]
+# This workflow runs only on pushes to the main branch.
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build-and-test:
@@ -42,16 +45,16 @@ jobs:
         with:
           name: dist
           path: dist/
-          
+
   docker-smoke-test:
     # This job depends on the successful completion of the build-and-test job
     needs: build-and-test
     runs-on: ubuntu-latest
-    
+
     # This job should only run on pushes to the main branch, after the test is fixed.
     # We leave it enabled for all pushes to demonstrate the full pipeline.
     # In a real project, you might add: if: github.ref == 'refs/heads/main'
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -80,7 +83,7 @@ jobs:
           done
           echo "Health check failed after 10 attempts."
           exit 1
-      
+
       # 11. Stop and remove the Docker container
       - name: Stop and remove container
         # This step runs even if the smoke test fails, ensuring cleanup.
