@@ -57,8 +57,7 @@ app.patch('/tasks/:id/toggle', (req, res) => {
 
 app.delete('/tasks/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
-  const success = false;
-  // const success = taskStore.deleteTask(id)
+  const success = taskStore.deleteTask(id);
 
   if (!success) {
     return res.status(404).json({ message: 'Task not found' });

@@ -45,11 +45,14 @@ export const toggleTask = (id: number): Task | null => {
 };
 
 export const deleteTask = (id: number): boolean => {
-  const taskIndex = tasks.findIndex((t) => t.id === id);
-  if (taskIndex > -1) {
-    tasks.splice(taskIndex, 1);
-    return true;
-  }
+  // uncomment the code below to make this function works -->
+
+  // const taskIndex = tasks.findIndex((t) => t.id === id);
+  // if (taskIndex > -1) {
+  //   tasks.splice(taskIndex, 1);
+  //   return true;
+  // }
+
   return false;
 };
 
