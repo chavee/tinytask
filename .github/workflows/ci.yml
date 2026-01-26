@@ -61,11 +61,11 @@ jobs:
 
       # 8. Build the Docker image
       - name: Build Docker image
-        run: docker build -t starterweb-taskboard:${{ github.sha }} .
+        run: docker build -t anunpanya/tinytask:${{ github.sha }} .
 
       # 9. Run the Docker container in detached mode
       - name: Run Docker container
-        run: docker run -d -p 3000:3000 --name taskboard-app starterweb-taskboard:${{ github.sha }}
+        run: docker run -d -p 3000:3000 --name taskboard-app anunpanya/tinytask:${{ github.sha }}
 
       # 10. Smoke test the application with a retry loop
       - name: Smoke test with curl
@@ -92,3 +92,18 @@ jobs:
           docker logs taskboard-app
           docker stop taskboard-app
           docker rm taskboard-app
+          
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            anunpanya/tinytask:latest
+            anunpanya/tinytask:${{ github.sha }}
