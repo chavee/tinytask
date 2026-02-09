@@ -19,3 +19,4 @@ lerna-debug.log*
 .DS_Store
 data
 .claude
+VERCEL.md
