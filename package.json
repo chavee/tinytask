@@ -1,6 +1,6 @@
 {
   "name": "starterweb-taskboard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A minimal task board web app for CI/CD training.",
   "main": "dist/server.js",
   "scripts": {
